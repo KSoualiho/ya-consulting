@@ -1,0 +1,236 @@
+/* Style moderne pour YA Consulting */
+:root {
+    --primary: #4361ee;
+    --secondary: #3f37c9;
+    --success: #4caf50;
+    --danger: #f44336;
+    --warning: #ff9800;
+    --info: #2196f3;
+    --dark: #1a1a2e;
+    --light: #f8f9fa;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--light);
+}
+
+.navbar {
+    background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: inset -1px 0 0 rgba(0,0,0,.1);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: rgba(255,255,255,.8);
+    padding: 10px 20px;
+    margin: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    background: rgba(255,255,255,.1);
+    color: white;
+}
+
+.sidebar .nav-link.active {
+    background: rgba(255,255,255,.2);
+    color: white;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.stat-card h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.3;
+}
+
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.status-en_attente { background: #ffc107; color: #000; }
+.status-planifiee { background: #17a2b8; color: #fff; }
+.status-en_cours { background: #007bff; color: #fff; }
+.status-terminee { background: #28a745; color: #fff; }
+.status-annulee { background: #dc3545; color: #fff; }
+
+.priority-urgente { background: #dc3545; color: #fff; }
+.priority-haute { background: #fd7e14; color: #fff; }
+.priority-moyenne { background: #ffc107; color: #000; }
+.priority-basse { background: #28a745; color: #fff; }
+
+.btn-action {
+    margin: 0 2px;
+    padding: 5px 10px;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s;
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    background: white;
+    border-bottom: 2px solid var(--primary);
+    border-radius: 15px 15px 0 0 !important;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+}
+
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: var(--dark);
+    color: white;
+    border: none;
+}
+
+.filters-bar {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+/* Mobile responsive */
+@media (max-width: 768px) {
+    /* Sidebar devient menu hamburger */
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 280px;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    /* Main content prend toute la largeur */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 1rem !important;
+    }
+    
+    /* Tableaux scrollables */
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    table {
+        min-width: 600px;
+    }
+    
+    /* Cartes en colonne */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+    
+    /* Polices plus petites */
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    h2 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Boutons plus grands pour le doigt */
+    button, .btn {
+        min-height: 44px;
+    }
+    
+    /* Espacement des inputs */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+}
