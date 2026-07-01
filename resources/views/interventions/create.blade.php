@@ -7,343 +7,215 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "surface-variant": "#e1e2ea",
-                        "surface-container-lowest": "#ffffff",
-                        "on-surface": "#191c21",
-                        "on-primary-fixed-variant": "#004491",
-                        "tertiary-fixed": "#ffdbcc",
-                        "on-secondary-fixed": "#041b3c",
-                        "outline-variant": "#c2c6d4",
-                        "on-primary-container": "#bbd0ff",
-                        "error-container": "#ffdad6",
-                        "on-secondary": "#ffffff",
-                        "secondary": "#4c5e84",
-                        "on-secondary-fixed-variant": "#34476a",
-                        "on-background": "#191c21",
-                        "tertiary-container": "#983c00",
-                        "surface-container-high": "#e7e8f0",
-                        "primary": "#003f87",
-                        "primary-fixed": "#d7e2ff",
-                        "secondary-container": "#bfd2fd",
-                        "on-tertiary-fixed-variant": "#7b2f00",
-                        "secondary-fixed-dim": "#b3c7f1",
-                        "on-primary-fixed": "#001a40",
-                        "surface-container-highest": "#e1e2ea",
-                        "outline": "#727784",
-                        "on-tertiary-fixed": "#351000",
-                        "on-error-container": "#93000a",
-                        "error": "#ba1a1a",
-                        "surface": "#f9f9ff",
-                        "surface-dim": "#d9d9e2",
-                        "background": "#f9f9ff",
-                        "on-tertiary-container": "#ffc2a7",
-                        "surface-container": "#ededf6",
-                        "inverse-on-surface": "#f0f0f9",
-                        "surface-container-low": "#f2f3fc",
-                        "inverse-primary": "#acc7ff",
-                        "on-primary": "#ffffff",
-                        "tertiary": "#722b00",
-                        "primary-container": "#0056b3",
-                        "on-tertiary": "#ffffff",
-                        "inverse-surface": "#2e3037",
-                        "on-surface-variant": "#424752",
-                        "on-secondary-container": "#475a7f",
-                        "tertiary-fixed-dim": "#ffb694",
-                        "primary-fixed-dim": "#acc7ff",
-                        "surface-bright": "#f9f9ff",
-                        "on-error": "#ffffff",
-                        "surface-tint": "#115cb9",
-                        "secondary-fixed": "#d7e2ff"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    fontFamily: {
-                        "headline": ["Inter"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
-                },
-            },
-        }
-    </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .signature-gradient {
-            background: linear-gradient(135deg, #003f87 0%, #0056b3 100%);
-        }
+        body { font-family: 'Inter', sans-serif; background: #f8f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .signature-gradient { background: linear-gradient(135deg, #003f87 0%, #0056b3 100%); }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0, 63, 135, 0.06); }
     </style>
 </head>
-<body class="bg-surface text-on-surface">
+<body class="bg-surface text-on-surface antialiased">
 
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-40 bg-[#f9f9ff]/80 backdrop-blur-xl shadow-sm flex justify-between items-center h-16 px-8">
-    <div class="flex items-center gap-8 h-full">
-        <span class="text-xl font-bold tracking-tighter text-[#191c21]">Azure Meridian</span>
-        <div class="hidden md:flex items-center bg-[#f2f3fc] rounded-lg px-3 py-1.5 gap-2 w-64">
-            <span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<header class="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-xl shadow-sm flex justify-between items-center h-16 px-8 border-b border-gray-100">
+    <div class="flex items-center gap-8">
+        <span class="text-xl font-bold text-[#003f87]">YA Consulting</span>
+        <div class="hidden md:flex items-center bg-gray-100 rounded-lg px-3 py-1.5 gap-2 w-64">
+            <span class="material-symbols-outlined text-gray-400 text-lg">search</span>
             <input class="bg-transparent border-none text-sm focus:ring-0 w-full" placeholder="Rechercher..." type="text">
         </div>
     </div>
     <div class="flex items-center gap-4">
-        <div class="h-8 w-8 rounded-full overflow-hidden ml-2 bg-primary flex items-center justify-center text-white text-sm font-bold">
+        <div class="h-8 w-8 rounded-full bg-[#003f87] flex items-center justify-center text-white text-sm font-bold">
             {{ substr(Auth::user()->name ?? 'AD', 0, 1) }}
         </div>
     </div>
-</nav>
-
-<!-- SideNavBar -->
-<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-[#f2f3fc] flex flex-col p-6 space-y-2 hidden md:flex">
-    <div class="flex flex-col mb-8 pt-4">
-        <div class="flex items-center gap-3 mb-2">
-            <div class="w-10 h-10 rounded-xl signature-gradient flex items-center justify-center text-white">
-                <span class="material-symbols-outlined">engineering</span>
-            </div>
-            <div>
-                <h2 class="text-lg font-black text-[#191c21] leading-tight">Azure Meridian</h2>
-                <p class="text-xs text-[#424752] font-medium tracking-wide">Gestion d'interventions</p>
-            </div>
-        </div>
-    </div>
-    <nav class="flex-1 space-y-1">
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('dashboard') }}">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span class="font-medium text-sm">Tableau de Bord</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('clients.index') }}">
-            <span class="material-symbols-outlined">group</span>
-            <span class="font-medium text-sm">Clients</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-[#003f87] to-[#0056b3] text-white rounded-lg shadow-lg transition-all hover:translate-x-1 duration-300" href="{{ route('interventions.index') }}">
-            <span class="material-symbols-outlined">engineering</span>
-            <span class="font-medium text-sm">Interventions</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('techniciens.index') }}">
-            <span class="material-symbols-outlined">badge</span>
-            <span class="font-medium text-sm">Techniciens</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('rapports.index') }}">
-            <span class="material-symbols-outlined">description</span>
-            <span class="font-medium text-sm">Rapports</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('statistiques.index') }}">
-            <span class="material-symbols-outlined">monitoring</span>
-            <span class="font-medium text-sm">Statistiques</span>
-        </a>
-        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-[#003f87] transition-all hover:translate-x-1 duration-300" href="{{ route('planning.index') }}">
-            <span class="material-symbols-outlined">calendar_month</span>
-            <span class="font-medium text-sm">Planning</span>
-        </a>
-    </nav>
-    <div class="pt-6 border-t border-outline-variant/10 space-y-1">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg hover:text-error transition-all hover:translate-x-1 duration-300 w-full">
-                <span class="material-symbols-outlined">logout</span>
-                <span class="font-medium text-sm">Déconnexion</span>
-            </button>
-        </form>
-    </div>
-</aside>
+</header>
 
 <!-- Main Content -->
-<main class="md:ml-64 pt-24 pb-12 px-8 min-h-screen">
-    <div class="max-w-5xl mx-auto">
-        <!-- Breadcrumbs -->
-        <nav class="flex items-center gap-2 mb-8">
-            <span class="text-sm text-on-surface-variant font-medium">Interventions</span>
-            <span class="material-symbols-outlined text-sm text-on-surface-variant">chevron_right</span>
-            <span class="text-sm text-primary font-semibold">Nouvelle Intervention</span>
-        </nav>
+<main class="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
 
-        <header class="mb-12">
-            <h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Créer une Intervention</h1>
-            <p class="text-on-surface-variant max-w-2xl leading-relaxed">Remplissez les détails ci-dessous pour planifier et assigner une nouvelle mission technique. Les champs marqués d'une étoile sont obligatoires.</p>
-        </header>
+    <!-- Breadcrumbs avec icônes -->
+    <nav class="flex items-center gap-2 mb-6 text-sm">
+        <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-[#003f87] transition flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">dashboard</span> Dashboard
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href="{{ route('interventions.index') }}" class="text-gray-400 hover:text-[#003f87] transition flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">engineering</span> Interventions
+        </a>
+        <span class="text-gray-300">/</span>
+        <span class="text-[#003f87] font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">add_circle</span> Nouvelle Intervention
+        </span>
+    </nav>
 
-        <!-- Messages flash -->
-        @if(session('success'))
-            <div class="mb-6 p-4 rounded-xl bg-green-50 text-green-700 border border-green-200">
-                {{ session('success') }}
-            </div>
-        @endif
+    <!-- Header -->
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+            <span class="w-10 h-10 rounded-xl bg-[#003f87]/10 flex items-center justify-center text-[#003f87]">
+                <span class="material-symbols-outlined">add_circle</span>
+            </span>
+            Créer une Intervention
+        </h1>
+        <p class="text-gray-500 mt-1 ml-14">Remplissez les détails ci-dessous pour planifier une nouvelle mission technique.</p>
+    </header>
 
-        @if(session('error'))
-            <div class="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200">
-                {{ session('error') }}
-            </div>
-        @endif
+    <!-- Messages flash -->
+    @if(session('success'))
+        <div class="mb-6 p-4 rounded-xl bg-green-50 text-green-700 border border-green-200 flex items-center gap-2">
+            <span class="material-symbols-outlined text-green-500">check_circle</span> {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200 flex items-center gap-2">
+            <span class="material-symbols-outlined text-red-500">error</span> {{ session('error') }}
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200">
+            @foreach($errors->all() as $error)<p>• {{ $error }}</p>@endforeach
+        </div>
+    @endif
 
-        @if($errors->any())
-            <div class="mb-6 p-4 rounded-xl bg-red-50 text-red-700 border border-red-200">
-                @foreach($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                @endforeach
-            </div>
-        @endif
+    <!-- Formulaire + Résumé -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Form Canvas -->
-            <div class="lg:col-span-8 space-y-8">
-                <form action="{{ route('interventions.store') }}" method="POST" id="interventionForm">
-                    @csrf
+        <!-- Formulaire (2/3) -->
+        <div class="lg:col-span-2 space-y-6">
+            <form action="{{ route('interventions.store') }}" method="POST" id="interventionForm">
+                @csrf
 
-                    <!-- Section: Informations Client -->
-                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                        <div class="flex items-center gap-3 mb-8">
-                            <span class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary">
-                                <span class="material-symbols-outlined text-sm">person</span>
-                            </span>
-                            <h2 class="text-xl font-bold text-on-surface">Informations Client</h2>
+                <!-- Informations Client -->
+                <div class="bg-white rounded-2xl card-shadow p-6 border border-gray-100 hover:border-[#003f87]/20 transition">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-8 h-8 rounded-lg bg-[#003f87]/10 flex items-center justify-center text-[#003f87]">
+                            <span class="material-symbols-outlined text-sm">person</span>
                         </div>
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Sélectionner un Client *</label>
-                                <div class="relative group">
-                                    <select name="client_id" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary appearance-none transition-all" required>
-                                        <option value="">Rechercher un client...</option>
-                                        @foreach($clients as $client)
-                                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
-                                                {{ $client->nom_entreprise }} - {{ $client->contact }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
-                                        <span class="material-symbols-outlined">expand_more</span>
-                                    </div>
-                                </div>
+                        <h3 class="text-lg font-semibold text-gray-800">Informations Client</h3>
+                        <span class="ml-auto text-xs text-gray-400">Étape 1/3</span>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Client <span class="text-red-500">*</span></label>
+                        <select name="client_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003f87] focus:border-[#003f87] outline-none transition bg-gray-50/50" required>
+                            <option value="">Sélectionner un client</option>
+                            @foreach($clients as $client)
+                                <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
+                                    {{ $client->nom_entreprise }} - {{ $client->contact }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Détails -->
+                <div class="bg-white rounded-2xl card-shadow p-6 border border-gray-100 hover:border-[#003f87]/20 transition">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-8 h-8 rounded-lg bg-[#003f87]/10 flex items-center justify-center text-[#003f87]">
+                            <span class="material-symbols-outlined text-sm">article</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-800">Détails de l'Intervention</h3>
+                        <span class="ml-auto text-xs text-gray-400">Étape 2/3</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Type d'intervention <span class="text-red-500">*</span></label>
+                            <input type="text" name="type_intervention" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003f87] focus:border-[#003f87] outline-none transition bg-gray-50/50" placeholder="Ex: Maintenance, Installation, Audit..." value="{{ old('type_intervention') }}" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Priorité <span class="text-red-500">*</span></label>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" onclick="setPriority('basse')" class="priority-btn px-4 py-2 rounded-xl text-sm font-medium border-2 transition-all" data-priority="basse">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 inline-block mr-1"></span> Basse
+                                </button>
+                                <button type="button" onclick="setPriority('moyenne')" class="priority-btn px-4 py-2 rounded-xl text-sm font-medium border-2 border-[#003f87] bg-[#003f87]/5 text-[#003f87] transition-all active" data-priority="moyenne">
+                                    <span class="w-2 h-2 rounded-full bg-[#003f87] inline-block mr-1"></span> Moyenne
+                                </button>
+                                <button type="button" onclick="setPriority('haute')" class="priority-btn px-4 py-2 rounded-xl text-sm font-medium border-2 transition-all" data-priority="haute">
+                                    <span class="w-2 h-2 rounded-full bg-orange-500 inline-block mr-1"></span> Haute
+                                </button>
+                                <button type="button" onclick="setPriority('urgente')" class="priority-btn px-4 py-2 rounded-xl text-sm font-medium border-2 transition-all" data-priority="urgente">
+                                    <span class="w-2 h-2 rounded-full bg-red-500 inline-block mr-1"></span> Urgente
+                                </button>
                             </div>
+                            <input type="hidden" name="priorite" id="priorite" value="moyenne">
                         </div>
-                    </section>
-
-                    <!-- Section: Détails de l'Intervention -->
-                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                        <div class="flex items-center gap-3 mb-8">
-                            <span class="w-8 h-8 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
-                                <span class="material-symbols-outlined text-sm">article</span>
-                            </span>
-                            <h2 class="text-xl font-bold text-on-surface">Détails de l'Intervention</h2>
-                        </div>
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Type d'Intervention *</label>
-                                <input type="text" name="type_intervention" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary transition-all" placeholder="Ex: Maintenance Curative, Installation, Audit..." value="{{ old('type_intervention') }}" required>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Priorité *</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    <button type="button" onclick="setPriority('basse')" class="priority-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low hover:bg-surface-container border-2 transition-all" data-priority="basse">
-                                        <span class="w-2 h-2 rounded-full bg-green-500 mb-1"></span>
-                                        <span class="text-[10px] font-bold uppercase tracking-tighter">Basse</span>
-                                    </button>
-                                    <button type="button" onclick="setPriority('moyenne')" class="priority-btn flex flex-col items-center justify-center p-3 rounded-xl border-2 border-primary-container bg-primary-fixed-dim/20 transition-all active" data-priority="moyenne">
-                                        <span class="w-2 h-2 rounded-full bg-primary mb-1"></span>
-                                        <span class="text-[10px] font-bold uppercase tracking-tighter text-primary">Moyenne</span>
-                                    </button>
-                                    <button type="button" onclick="setPriority('haute')" class="priority-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low hover:bg-surface-container border-2 transition-all" data-priority="haute">
-                                        <span class="w-2 h-2 rounded-full bg-error mb-1"></span>
-                                        <span class="text-[10px] font-bold uppercase tracking-tighter">Haute</span>
-                                    </button>
-                                </div>
-                                <input type="hidden" name="priorite" id="priorite" value="moyenne">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Description de la mission *</label>
-                                <textarea name="description" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary transition-all resize-none" placeholder="Décrivez précisément l'intervention à réaliser..." rows="4" required>{{ old('description') }}</textarea>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Section: Attribution & Planification -->
-                    <section class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                        <div class="flex items-center gap-3 mb-8">
-                            <span class="w-8 h-8 rounded-lg bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
-                                <span class="material-symbols-outlined text-sm">calendar_month</span>
-                            </span>
-                            <h2 class="text-xl font-bold text-on-surface">Attribution &amp; Planification</h2>
-                        </div>
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Technicien Référent</label>
-                                <div class="relative">
-                                    <select name="technicien_id" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary appearance-none transition-all">
-                                        <option value="">Assigner un technicien</option>
-                                        @foreach($techniciens as $technicien)
-                                            <option value="{{ $technicien->id }}" {{ old('technicien_id') == $technicien->id ? 'selected' : '' }}>
-                                                {{ $technicien->nom }} ({{ $technicien->specialite ?? 'Polyvalent' }})
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">
-                                        <span class="material-symbols-outlined">engineering</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Date de l'intervention</label>
-                                    <input type="date" name="date_heure" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary transition-all" value="{{ old('date_heure') }}">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Heure prévue</label>
-                                    <input type="time" name="heure" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3.5 text-on-surface focus:ring-1 focus:ring-primary transition-all" value="{{ old('heure') }}">
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </form>
-            </div>
-
-            <!-- Sidebar Actions/Info -->
-            <div class="lg:col-span-4 space-y-6">
-                <div class="bg-surface-container-high/50 p-6 rounded-xl border border-outline-variant/20 sticky top-24">
-                    <h3 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant mb-6">Résumé de l'Intervention</h3>
-                    <div class="space-y-4 mb-8">
-                        <div class="flex justify-between items-start gap-4">
-                            <span class="text-xs font-medium text-on-surface-variant">Client</span>
-                            <span class="text-xs font-bold text-on-surface text-right" id="summaryClient">Non sélectionné</span>
-                        </div>
-                        <div class="flex justify-between items-start gap-4">
-                            <span class="text-xs font-medium text-on-surface-variant">Type</span>
-                            <span class="text-xs font-bold text-on-surface text-right" id="summaryType">—</span>
-                        </div>
-                        <div class="flex justify-between items-start gap-4">
-                            <span class="text-xs font-medium text-on-surface-variant">Priorité</span>
-                            <span class="text-xs font-bold text-primary text-right" id="summaryPriorite">Moyenne</span>
-                        </div>
-                        <div class="flex justify-between items-start gap-4">
-                            <span class="text-xs font-medium text-on-surface-variant">Technicien</span>
-                            <span class="text-xs font-bold text-on-surface text-right" id="summaryTechnicien">Non assigné</span>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Description <span class="text-red-500">*</span></label>
+                            <textarea name="description" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003f87] focus:border-[#003f87] outline-none transition bg-gray-50/50" rows="4" placeholder="Décrivez précisément l'intervention à réaliser..." required>{{ old('description') }}</textarea>
                         </div>
                     </div>
-                    <button type="submit" form="interventionForm" class="w-full signature-gradient text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl active:scale-95 transition-all mb-3 flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">add</span>
-                        Créer Intervention
-                    </button>
-                    <a href="{{ route('interventions.index') }}" class="w-full bg-surface-container-highest/50 text-on-surface-variant font-bold py-3 rounded-xl hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2 block text-center">
-                        <span class="material-symbols-outlined text-sm">close</span>
-                        Annuler
-                    </a>
-                    <div class="mt-8 pt-8 border-t border-outline-variant/20">
-                        <div class="flex items-center gap-2 text-primary mb-3">
-                            <span class="material-symbols-outlined text-sm">info</span>
-                            <span class="text-[10px] font-bold uppercase tracking-widest">Conseil Azure</span>
+                </div>
+
+                <!-- Attribution -->
+                <div class="bg-white rounded-2xl card-shadow p-6 border border-gray-100 hover:border-[#003f87]/20 transition">
+                    <div class="flex items-center gap-3 mb-5">
+                        <div class="w-8 h-8 rounded-lg bg-[#003f87]/10 flex items-center justify-center text-[#003f87]">
+                            <span class="material-symbols-outlined text-sm">calendar_month</span>
                         </div>
-                        <p class="text-[11px] text-on-surface-variant leading-relaxed">
-                            N'oubliez pas de joindre les schémas techniques ou photos nécessaires après la création de l'intervention.
-                        </p>
+                        <h3 class="text-lg font-semibold text-gray-800">Attribution &amp; Planification</h3>
+                        <span class="ml-auto text-xs text-gray-400">Étape 3/3</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Technicien</label>
+                            <select name="technicien_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003f87] focus:border-[#003f87] outline-none transition bg-gray-50/50">
+                                <option value="">Non assigné</option>
+                                @foreach($techniciens as $technicien)
+                                    <option value="{{ $technicien->id }}" {{ old('technicien_id') == $technicien->id ? 'selected' : '' }}>
+                                        {{ $technicien->nom }} ({{ $technicien->specialite ?? 'Polyvalent' }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date &amp; Heure</label>
+                            <input type="datetime-local" name="date_heure" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#003f87] focus:border-[#003f87] outline-none transition bg-gray-50/50" value="{{ old('date_heure') }}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="flex justify-end gap-3 pt-2">
+                    <a href="{{ route('interventions.index') }}" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition text-gray-600 font-medium flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">close</span> Annuler
+                    </a>
+                    <button type="submit" class="signature-gradient text-white px-8 py-3 rounded-xl font-semibold shadow-lg shadow-[#003f87]/20 hover:shadow-xl transition flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">add</span> Créer l'intervention
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Résumé (1/3) -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-2xl card-shadow p-6 border border-gray-100 sticky top-24">
+                <div class="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
+                    <span class="material-symbols-outlined text-[#003f87]">receipt_long</span>
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500">Résumé</h3>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                        <span class="text-sm text-gray-500">Client</span>
+                        <span class="text-sm font-medium text-gray-800" id="summaryClient">Non sélectionné</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                        <span class="text-sm text-gray-500">Type</span>
+                        <span class="text-sm font-medium text-gray-800" id="summaryType">—</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-50">
+                        <span class="text-sm text-gray-500">Priorité</span>
+                        <span class="text-sm font-medium text-[#003f87]" id="summaryPriorite">Moyenne</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span class="text-sm text-gray-500">Technicien</span>
+                        <span class="text-sm font-medium text-gray-800" id="summaryTechnicien">Non assigné</span>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <div class="flex items-start gap-2 text-xs text-gray-400">
+                        <span class="material-symbols-outlined text-sm text-[#003f87]">info</span>
+                        <p>Tous les champs marqués d'une <span class="text-red-500">*</span> sont obligatoires.</p>
                     </div>
                 </div>
             </div>
@@ -354,30 +226,26 @@
 <script>
     function setPriority(priority) {
         document.getElementById('priorite').value = priority;
-        const labels = { basse: 'Basse', moyenne: 'Moyenne', haute: 'Haute' };
+        const labels = { basse: 'Basse', moyenne: 'Moyenne', haute: 'Haute', urgente: 'Urgente' };
         document.getElementById('summaryPriorite').innerText = labels[priority];
-        
+
         document.querySelectorAll('.priority-btn').forEach(btn => {
-            btn.classList.remove('border-2', 'border-primary-container', 'bg-primary-fixed-dim/20');
-            btn.classList.add('bg-surface-container-low');
+            btn.classList.remove('border-[#003f87]', 'bg-[#003f87]/5', 'text-[#003f87]');
+            btn.classList.add('border-gray-200', 'text-gray-600');
         });
-        event.currentTarget.classList.add('border-2', 'border-primary-container', 'bg-primary-fixed-dim/20');
-        event.currentTarget.classList.remove('bg-surface-container-low');
+        event.currentTarget.classList.add('border-[#003f87]', 'bg-[#003f87]/5', 'text-[#003f87]');
+        event.currentTarget.classList.remove('border-gray-200', 'text-gray-600');
     }
 
     // Mise à jour du résumé
     document.querySelector('select[name="client_id"]').addEventListener('change', function() {
-        let option = this.options[this.selectedIndex];
-        document.getElementById('summaryClient').innerText = option.text || 'Non sélectionné';
+        document.getElementById('summaryClient').innerText = this.options[this.selectedIndex]?.text || 'Non sélectionné';
     });
-
     document.querySelector('input[name="type_intervention"]').addEventListener('input', function() {
         document.getElementById('summaryType').innerText = this.value || '—';
     });
-
     document.querySelector('select[name="technicien_id"]').addEventListener('change', function() {
-        let option = this.options[this.selectedIndex];
-        document.getElementById('summaryTechnicien').innerText = option.text || 'Non assigné';
+        document.getElementById('summaryTechnicien').innerText = this.options[this.selectedIndex]?.text || 'Non assigné';
     });
 </script>
 

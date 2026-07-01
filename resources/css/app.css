@@ -234,3 +234,182 @@ body {
         font-size: 16px !important;
     }
 }
+/* ============================================
+   STYLES MOBILE GLOBAUX - YA Consulting
+   ============================================ */
+
+/* Pour tous les écrans */
+* {
+    box-sizing: border-box;
+}
+
+/* Mobile (max 640px) */
+@media (max-width: 640px) {
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Sidebar - Menu hamburger */
+    .sidebar {
+        position: fixed !important;
+        left: -280px !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 280px !important;
+        transition: left 0.3s ease !important;
+        z-index: 1000 !important;
+        overflow-y: auto !important;
+    }
+    .sidebar.open {
+        left: 0 !important;
+    }
+
+    /* Main content */
+    .main-content, main {
+        margin-left: 0 !important;
+        padding: 12px !important;
+    }
+
+    /* Bouton menu hamburger */
+    .menu-toggle {
+        display: block !important;
+        position: fixed !important;
+        top: 10px !important;
+        left: 10px !important;
+        z-index: 1001 !important;
+        background: #003f87 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        cursor: pointer !important;
+    }
+
+    /* Cartes */
+    .stat-card, .card {
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+    }
+    .stat-value {
+        font-size: 1.3rem !important;
+    }
+
+    /* Grilles */
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    .grid-cols-3 {
+        grid-template-columns: 1fr !important;
+    }
+    .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Tableaux */
+    .table-container, .overflow-x-auto {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    table {
+        min-width: 500px !important;
+        font-size: 12px !important;
+    }
+    table th, table td {
+        padding: 8px 10px !important;
+    }
+
+    /* Polices */
+    h1, .text-3xl, .text-4xl {
+        font-size: 1.3rem !important;
+    }
+    h2, .text-2xl {
+        font-size: 1.1rem !important;
+    }
+    .text-xl {
+        font-size: 1rem !important;
+    }
+
+    /* Espacements */
+    .p-8 {
+        padding: 12px !important;
+    }
+    .px-8 {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    .gap-8 {
+        gap: 12px !important;
+    }
+    .mb-8 {
+        margin-bottom: 12px !important;
+    }
+    .mb-12 {
+        margin-bottom: 16px !important;
+    }
+
+    /* Boutons */
+    .btn, button, .btn-primary {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+        min-height: 44px !important;
+        width: 100% !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* Formulaires */
+    input, select, textarea {
+        font-size: 16px !important;
+        padding: 10px 12px !important;
+        width: 100% !important;
+    }
+
+    /* Header */
+    .fixed.top-0 {
+        padding: 8px 12px !important;
+        height: auto !important;
+        flex-wrap: wrap !important;
+    }
+    .fixed.top-0 .flex.items-center {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+    }
+
+    /* Masquer les éléments inutiles sur mobile */
+    .mobile-hidden {
+        display: none !important;
+    }
+
+    /* Cards KPI sur mobile */
+    .stat-card {
+        padding: 12px !important;
+    }
+    .stat-card .stat-value {
+        font-size: 1.2rem !important;
+    }
+    .stat-card .text-muted {
+        font-size: 0.6rem !important;
+    }
+}
+
+/* Tablette (641px - 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .px-8 {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}
+
+/* Desktop (min 1025px) */
+@media (min-width: 1025px) {
+    .menu-toggle {
+        display: none !important;
+    }
+    .sidebar {
+        left: 0 !important;
+    }
+}

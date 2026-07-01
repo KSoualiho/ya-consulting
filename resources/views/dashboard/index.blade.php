@@ -2,6 +2,7 @@
 <html class="light" lang="fr">
 <head>
     <meta charset="utf-8">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>YA Consulting - Tableau de Bord</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -84,6 +85,18 @@
     </style>
 </head>
 <body class="bg-surface text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+    <!-- Bouton menu hamburger -->
+<button onclick="toggleMenu()" class="menu-toggle">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+</button>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.sidebar').classList.toggle('open');
+    }
+</script>
 <!-- DEBUG RÔLE -->
 <div style="background: #ff9800; color: white; padding: 10px; margin: 10px; border-radius: 5px; position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
     <strong>Email:</strong> {{ Auth::user()->email ?? 'Non connecté' }}<br>
@@ -172,7 +185,9 @@
           <a href="{{ route('notifications.index') }}" 
    class="p-2 text-[#424752] hover:bg-[#ededf6] rounded-full transition-colors relative">
     <span class="material-symbols-outlined">notifications</span>
-    <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+    @if($notificationsNonLues > 0)
+        <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+    @endif
 </a>
         </div>
         <div class="h-8 w-px bg-outline-variant/30"></div>

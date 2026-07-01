@@ -6,6 +6,7 @@ use App\Models\Rapport;
 use App\Models\Intervention;
 use App\Models\User;
 use App\Services\NotificationService;
+use App\Services\AuditService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -84,6 +85,14 @@ class RapportController extends Controller
         }
 
         $rapport->save();
+        
+        // Enregistrer l'audit
+        AuditService::logRapportChange(
+            $rapport,
+            'create',
+            null,
+            $rapport->getAttributes()
+        );
 
         // Notification aux managers
         $managers = User::where('role', 'manager')->get();
@@ -103,10 +112,19 @@ class RapportController extends Controller
                 ->with('error', 'Seul un manager peut valider les rapports');
         }
 
+        $oldData = $rapport->getAttributes();
         $rapport->valide = true;
         $rapport->valide_par = Auth::id();
         $rapport->date_validation = now();
         $rapport->save();
+        
+        // Enregistrer l'audit
+        AuditService::logRapportChange(
+            $rapport,
+            'validate',
+            $oldData,
+            $rapport->getAttributes()
+        );
 
         // Notification au technicien
         if ($rapport->intervention->technicien_id) {

@@ -100,6 +100,38 @@
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Durée</h3>
                             <p class="text-slate-600 font-medium">{{ $rapport->duree_minutes }} minutes ({{ floor($rapport->duree_minutes / 60) }}h {{ $rapport->duree_minutes % 60 }}min)</p>
                         </div>
+                        
+                        @if($rapport->photo_path)
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-4">Photos de l'intervention</h3>
+                            <div class="relative w-full h-96 rounded-lg overflow-hidden bg-slate-100">
+                                <img src="{{ asset('storage/' . $rapport->photo_path) }}" alt="Photo intervention" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        @endif
+                        
+                        @if($rapport->signature_client)
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-4">Signature du client</h3>
+                            <div class="border border-slate-300 rounded-lg p-4 bg-slate-50">
+                                <img src="{{ $rapport->signature_client }}" alt="Signature client" class="w-full max-h-32 object-contain">
+                            </div>
+                        </div>
+                        @endif
+                        
+                        @if($rapport->satisfaction_client)
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-2">Satisfaction client</h3>
+                            <div class="flex items-center gap-2">
+                                @for($i = 1; $i <= 5; $i++)
+                                    <svg class="w-6 h-6 {{ $i <= $rapport->satisfaction_client ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300 fill-slate-300' }}" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                @endfor
+                                <span class="ml-3 text-sm font-medium text-slate-700">{{ $rapport->satisfaction_client }}/5</span>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

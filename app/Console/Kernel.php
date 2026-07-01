@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
 
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('reminders:send')->everyMinute();
+        // Envoyer des rappels d'intervention toutes les 30 minutes
+        $schedule->command('reminders:send')->everyThirtyMinutes();
     }
 
     protected function commands()

@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Technicien;
 use App\Models\User;
 use App\Services\NotificationService;
+use App\Services\AuditService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,6 +86,14 @@ class InterventionController extends Controller
         $validated['created_by'] = auth()->id();
 
         $intervention = Intervention::create($validated);
+        
+        // Enregistrer l'audit
+        AuditService::logInterventionChange(
+            $intervention,
+            'create',
+            null,
+            $validated
+        );
 
         if ($request->technicien_id) {
             NotificationService::assignation($request->technicien_id, $intervention);
@@ -138,9 +147,24 @@ class InterventionController extends Controller
         ]);
 
         $oldTechnicienId = $intervention->technicien_id;
+        $oldData = $intervention->getAttributes();
         $intervention->update($validated);
+        
+        // Enregistrer l'audit
+        AuditService::logInterventionChange(
+            $intervention,
+            'update',
+            $oldData,
+            $validated
+        );
 
         if ($validated['technicien_id'] && $oldTechnicienId != $validated['technicien_id']) {
+            AuditService::log('assign', 'Intervention', $intervention->id, 
+                "Nouveau technicien assigné à {$intervention->numero}", 
+                ['technicien_id' => $oldTechnicienId], 
+                ['technicien_id' => $validated['technicien_id']], 
+                $intervention->id
+            );
             NotificationService::assignation($validated['technicien_id'], $intervention);
         }
 

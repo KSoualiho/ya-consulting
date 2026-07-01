@@ -44,7 +44,7 @@ Route::post('/login', function (Illuminate\Http\Request $request) {
     return back()->withErrors([
         'email' => 'Email ou mot de passe incorrect.',
     ]);
-});
+})->middleware('throttle:5,1')->name('login.post');
 
 // Inscription
 Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
@@ -71,7 +71,11 @@ Route::middleware('auth')->group(function () {
 
     // ---------- INTERVENTIONS ----------
     Route::resource('interventions', InterventionController::class);
-    Route::post('/interventions/{intervention}/status', [InterventionController::class, 'updateStatus'])->name('interventions.updateStatus');
+    Route::post('/interventions/{intervention}/status', [InterventionController::class, 'updateStatus'])->name('interventions.updateStatus')->middleware('throttle:60,1');
+    // Rate limiting sur les créations/modifications d'interventions (60 par minute)
+    Route::post('/interventions', [InterventionController::class, 'store'])->middleware('throttle:60,1');
+    Route::put('/interventions/{intervention}', [InterventionController::class, 'update'])->middleware('throttle:60,1');
+    Route::post('/interventions', [InterventionController::class, 'store'])->name('interventions.store');
 
     // ---------- TECHNICIENS ----------
     Route::middleware('role:admin,manager')->resource('techniciens', TechnicienController::class);
@@ -79,9 +83,9 @@ Route::middleware('auth')->group(function () {
     // ---------- RAPPORTS ----------
     Route::get('/rapports', [RapportController::class, 'index'])->name('rapports.index');
     Route::get('/rapports/create/{intervention}', [RapportController::class, 'create'])->name('rapports.create');
-    Route::post('/rapports', [RapportController::class, 'store'])->name('rapports.store');
+    Route::post('/rapports', [RapportController::class, 'store'])->name('rapports.store')->middleware('throttle:30,1');
     Route::get('/rapports/{rapport}', [RapportController::class, 'show'])->name('rapports.show');
-    Route::post('/rapports/{rapport}/valider', [RapportController::class, 'valider'])->name('rapports.valider');
+    Route::post('/rapports/{rapport}/valider', [RapportController::class, 'valider'])->name('rapports.valider')->middleware('throttle:30,1');
 
     // ---------- PLANNING ----------
     Route::get('/planning', [PlanningController::class, 'index'])->name('planning.index');

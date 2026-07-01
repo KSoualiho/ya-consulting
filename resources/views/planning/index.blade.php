@@ -98,48 +98,68 @@
     </style>
 </head>
 <body class="bg-background text-on-surface antialiased flex overflow-hidden">
+    <!-- Bouton menu hamburger -->
+<button onclick="toggleMenu()" class="menu-toggle">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+</button>
+
+<script>
+    function toggleMenu() {
+        document.querySelector('.sidebar').classList.toggle('open');
+    }
+</script>
 
 <!-- SideNavBar -->
-<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-[#f2f3fc] flex flex-col p-6 space-y-2 font-['Inter'] text-sm font-medium tracking-wide">
+<aside class="h-screen w-64 fixed left-0 top-0 z-50 bg-[#f2f3fc] dark:bg-slate-900 flex flex-col p-6 space-y-2 font-['Inter'] text-sm font-medium tracking-wide">
     <div class="flex items-center space-x-3 mb-10 px-2">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#003f87] to-[#0056b3] flex items-center justify-center text-white shadow-md">
             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">landscape</span>
         </div>
         <div>
-            <h1 class="text-lg font-black text-[#191c21] leading-tight">YA Consulting</h1>
+            <h1 class="text-lg font-black text-[#191c21] dark:text-white leading-tight">YA Consulting</h1>
             <p class="text-[10px] uppercase tracking-widest text-[#424752] opacity-70">Gestion d'interventions</p>
         </div>
     </div>
     
     <nav class="flex-grow space-y-1">
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('dashboard') }}">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span>Tableau de Bord</span>
-        </a>
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('clients.index') }}">
+        <a class="flex items-center gap-3 px-4 py-3 text-[#424752] hover:bg-[#ededf6] rounded-lg transition-all duration-200" href="{{ route('dashboard') }}">
+    <span class="material-symbols-outlined">dashboard</span>
+    <span>Tableau de Bord</span>
+</a>
+        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all" href="{{ route('clients.index') }}">
             <span class="material-symbols-outlined">group</span>
             <span>Clients</span>
         </a>
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('interventions.index') }}">
+        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all" href="{{ route('interventions.index') }}">
             <span class="material-symbols-outlined">engineering</span>
             <span>Interventions</span>
         </a>
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('techniciens.index') }}">
+        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all" href="{{ route('techniciens.index') }}">
             <span class="material-symbols-outlined">badge</span>
             <span>Techniciens</span>
         </a>
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('rapports.index') }}">
+        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all" href="{{ route('rapports.index') }}">
             <span class="material-symbols-outlined">description</span>
             <span>Rapports</span>
         </a>
-        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all rounded-lg" href="{{ route('statistiques.index') }}">
+        <a class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-[#003f87] hover:translate-x-1 duration-300 transition-all" href="{{ route('statistiques.index') }}">
             <span class="material-symbols-outlined">monitoring</span>
             <span>Statistiques</span>
         </a>
-        <a class="flex items-center space-x-3 p-3 bg-gradient-to-br from-[#003f87] to-[#0056b3] text-white rounded-lg shadow-lg hover:translate-x-1 duration-300 transition-all" href="{{ route('planning.index') }}">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
-            <span>Planning</span>
-        </a>
+       <a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-[#003f87] to-[#0056b3] text-white rounded-lg shadow-lg transition-all duration-200" href="{{ route('planning.index') }}">
+    <span class="material-symbols-outlined">calendar_month</span>
+    <span>Planning</span>
+</a>
+
+         <!-- AJOUTE ICI LE LIEN ADMINISTRATION -->
+    @if(auth()->user()->role === 'admin')
+    <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-4 py-3 mt-4 text-white bg-gradient-to-br from-[#003f87] to-[#0056b3] rounded-lg shadow-lg">
+        <span class="material-symbols-outlined">admin_panel_settings</span>
+        <span>Administration</span>
+    </a>
+    @endif
     </nav>
     
     <div class="mt-auto pt-6 space-y-1">
@@ -149,7 +169,7 @@
         </a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-error transition-all rounded-lg w-full">
+            <button type="submit" class="w-full flex items-center space-x-3 p-3 text-[#424752] hover:bg-[#ededf6] hover:text-error transition-all">
                 <span class="material-symbols-outlined">logout</span>
                 <span>Déconnexion</span>
             </button>
@@ -248,14 +268,20 @@
         return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
     }
     
-    // Grouper les interventions par jour de la semaine
+    // Grouper les interventions par jour de la semaine (avec vérification de la semaine actuelle)
     function groupInterventionsByDay() {
+        const { monday, sunday } = getWeekDates(currentDate);
         const grouped = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
         
         interventions.forEach(intervention => {
             if (intervention.start) {
-                const dayIndex = getWeekDay(intervention.start);
-                grouped[dayIndex].push(intervention);
+                const interventionDate = new Date(intervention.start);
+                
+                // Vérifier que l'intervention est dans la semaine affichée
+                if (interventionDate >= monday && interventionDate <= sunday) {
+                    const dayIndex = getWeekDay(intervention.start);
+                    grouped[dayIndex].push(intervention);
+                }
             }
         });
         

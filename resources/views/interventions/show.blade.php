@@ -291,30 +291,59 @@
 <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant flex flex-col">
 <div class="flex items-center gap-3 mb-8 text-primary border-b border-outline-variant pb-4">
 <span class="material-symbols-outlined">history</span>
-<h3 class="font-h3 text-h3">Historique</h3>
+<h3 class="font-h3 text-h3">Historique des modifications</h3>
 </div>
-<div class="space-y-8 relative pl-4">
-<div class="absolute left-6 top-2 bottom-2 w-0.5 bg-outline-variant/30"></div>
-<div class="relative flex gap-6">
-<div class="z-10 w-4 h-4 rounded-full bg-green-500 ring-4 ring-surface mt-1.5"></div>
-<div class="flex-1">
-<div class="flex justify-between items-start mb-1">
-<span class="font-body-bold text-on-surface text-sm">Intervention {{ $intervention->statut }}</span>
-<span class="text-[10px] text-outline font-bold uppercase">{{ $intervention->updated_at->format('H:i') }}</span>
-</div>
-<p class="text-xs text-on-surface-variant leading-relaxed">Statut mis à jour le {{ $intervention->updated_at->format('d/m/Y') }}</p>
-</div>
-</div>
-<div class="relative flex gap-6">
-<div class="z-10 w-4 h-4 rounded-full bg-primary ring-4 ring-surface mt-1.5"></div>
-<div class="flex-1">
-<div class="flex justify-between items-start mb-1">
-<span class="font-body-bold text-on-surface text-sm">Intervention créée</span>
-<span class="text-[10px] text-outline font-bold uppercase">{{ $intervention->created_at->format('H:i') }}</span>
-</div>
-<p class="text-xs text-on-surface-variant leading-relaxed">Créée le {{ $intervention->created_at->format('d/m/Y') }}</p>
-</div>
-</div>
+<div class="space-y-4 relative pl-4">
+<div class="absolute left-2 top-2 bottom-2 w-1 bg-gradient-to-b from-primary to-primary/30 rounded-full"></div>
+
+@php
+    $activities = \App\Models\ActivityLog::where('intervention_id', $intervention->id)
+        ->with('user')
+        ->orderBy('created_at', 'desc')
+        ->get();
+@endphp
+
+@if($activities->count() > 0)
+    @foreach($activities as $activity)
+    <div class="relative flex gap-4 pb-4 border-b border-outline-variant/20">
+        <div class="z-10 w-3 h-3 rounded-full {{ $activity->action === 'create' ? 'bg-primary' : ($activity->action === 'validate' ? 'bg-green-500' : 'bg-blue-400') }} ring-4 ring-surface mt-1.5 flex-shrink-0"></div>
+        <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-start mb-1 gap-2">
+                <div class="min-w-0">
+                    <span class="font-body-bold text-on-surface text-sm block truncate">
+                        {{ $activity->description }}
+                    </span>
+                    @if($activity->user)
+                    <p class="text-xs text-on-surface-variant">Par <span class="font-semibold">{{ $activity->user->name }}</span></p>
+                    @endif
+                </div>
+                <span class="text-[10px] text-outline font-bold uppercase whitespace-nowrap">{{ $activity->created_at->format('d/m H:i') }}</span>
+            </div>
+            
+            @if($activity->old_values || $activity->new_values)
+            <div class="text-xs text-on-surface-variant mt-2 bg-slate-50 p-2 rounded border border-outline-variant/20">
+                @if(isset($activity->old_values['statut']) && isset($activity->new_values['statut']))
+                    <p><span class="font-semibold">Statut:</span> {{ $activity->old_values['statut'] ?? 'N/A' }} → {{ $activity->new_values['statut'] ?? 'N/A' }}</p>
+                @endif
+                @if(isset($activity->old_values['technicien_id']) && isset($activity->new_values['technicien_id']))
+                    <p><span class="font-semibold">Technicien:</span> Changé</p>
+                @endif
+                @if(isset($activity->new_values['priorite']))
+                    <p><span class="font-semibold">Priorité:</span> {{ $activity->new_values['priorite'] ?? 'N/A' }}</p>
+                @endif
+            </div>
+            @endif
+        </div>
+    </div>
+    @endforeach
+@else
+    <div class="relative flex gap-4">
+        <div class="z-10 w-3 h-3 rounded-full bg-primary ring-4 ring-surface mt-1.5"></div>
+        <div class="flex-1">
+            <p class="text-xs text-on-surface-variant italic">Intervention créée le {{ $intervention->created_at->format('d/m/Y à H:i') }}</p>
+        </div>
+    </div>
+@endif
 </div>
 
 @if($intervention->rapport && $intervention->rapport->photo_path)
